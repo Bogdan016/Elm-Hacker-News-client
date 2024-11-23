@@ -60,8 +60,8 @@ If the `Cursor` is focused on the last element, it returns `Nothing`
 -}
 advance : PostIds -> Maybe ( Int, PostIds )
 advance _ =
-    -- Nothing
-    Debug.todo "advance"
+    Nothing
+    -- Debug.todo "advance"
 
 
 {-| Returns the first post id
@@ -93,5 +93,5 @@ If the list is empty, the function returns `Nothing`.
 -}
 decode : De.Decoder (Maybe PostIds)
 decode =
-    -- De.fail "TODO"
-    Debug.todo "PostIds.decode"
+    De.fail "TODO"
+    -- Debug.todo "PostIds.decode"

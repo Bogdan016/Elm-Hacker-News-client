@@ -44,8 +44,8 @@ sortToString sort =
 -}
 sortFromString : String -> Maybe SortBy
 sortFromString _ =
-    -- Nothing
-    Debug.todo "sortFromString"
+    Nothing
+    -- Debug.todo "sortFromString"
 
 
 sortToCompareFn : SortBy -> (Post -> Post -> Order)
@@ -104,5 +104,5 @@ Relevant library functions:
 -}
 filterPosts : PostsConfig -> List Post -> List Post
 filterPosts _ _ =
-    -- []
-    Debug.todo "filterPosts"
+    []
+    -- Debug.todo "filterPosts"
