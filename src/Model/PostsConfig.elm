@@ -43,8 +43,18 @@ sortToString sort =
 
 -}
 sortFromString : String -> Maybe SortBy
-sortFromString _ =
-    Nothing
+sortFromString str =
+    case str of
+        "Score" -> Just Score
+
+        "Title" -> Just Title
+
+        "Posted" -> Just Posted
+
+        "None" -> Just None
+
+        _ -> Nothing
+
     -- Debug.todo "sortFromString"
 
 
@@ -106,7 +116,11 @@ Relevant library functions:
   - List.sortWith
 
 -}
+
 filterPosts : PostsConfig -> List Post -> List Post
-filterPosts _ _ =
-    []
-    -- Debug.todo "filterPosts"
+filterPosts config posts =
+    posts
+        |> List.filter (\post -> (config.showTextOnly || post.url /= Nothing) &&  (config.showJobs || post.type_ /= "job"))
+        |> List.sortWith (sortToCompareFn config.sortBy)   
+        |> List.take config.postsToShow                   
+

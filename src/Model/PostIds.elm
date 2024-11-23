@@ -58,9 +58,11 @@ If the `Cursor` is focused on the last element, it returns `Nothing`
     advance (PostIds (Cursor.withSelectedElement [ 1, 2 ] 3 [])) --> Nothing
 
 -}
-advance : PostIds -> Maybe ( Int, PostIds )
-advance _ =
-    Nothing
+advance : PostIds -> Maybe (Int, PostIds)
+advance (PostIds cursor) =
+    Cursor.forward cursor
+        |> Maybe.map (\newCursor -> (Cursor.current newCursor, PostIds newCursor))
+
     -- Debug.todo "advance"
 
 
@@ -93,5 +95,7 @@ If the list is empty, the function returns `Nothing`.
 -}
 decode : De.Decoder (Maybe PostIds)
 decode =
-    De.fail "TODO"
+    De.list De.int
+        |> De.map fromList
+        
     -- Debug.todo "PostIds.decode"
