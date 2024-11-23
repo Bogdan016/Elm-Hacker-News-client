@@ -20,3 +20,5 @@ tests/elm-stuff/
 *.log
 
 .cache/
+
+test-logd.ndjson

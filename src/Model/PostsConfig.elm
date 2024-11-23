@@ -81,7 +81,11 @@ defaultConfig =
 {-| A type that describes what option changed and how
 -}
 type Change
-    = ChangeTODO
+    = ChangePostsToShow Int
+    | ChangeSortBy SortBy
+    | ChangeShowJobs Bool
+    | ChangeShowTextOnly Bool
+
 
 
 {-| Given a change and the current configuration, return a new configuration with the changes applied
