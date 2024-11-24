@@ -24,7 +24,7 @@ encodePost post =
 
 
 posts : List Post
-posts = List.take 20
+posts = 
     [ { by = "vyrotek"
       , id = 38144400
       , score = 512

@@ -149,19 +149,9 @@ update msg model =
 
                 ( Model.LoadedPosts state, ConfigChanged change ) ->
                     let
-                        newConfig =
-                            Model.PostsConfig.applyChanges change state.config
-
-                        filteredPosts =
-                            Model.PostsConfig.filterPosts newConfig state.posts
+                        newConfig = Model.PostsConfig.applyChanges change state.config
                     in
-                    ( Model.LoadedPosts
-                        { state
-                            | config = newConfig
-                            , posts = filteredPosts
-                        }
-                    , Effect.NoEffect
-                    )
+                    ( Model.LoadedPosts { state | config = newConfig }, Effect.NoEffect )
 
                 ( state, _ ) ->
                     ( state, Effect.NoEffect )

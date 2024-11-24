@@ -32,11 +32,19 @@ Relevant library functions:
 
 -- Generates an HTML table displaying a list of posts
 postTable : PostsConfig -> Time.Posix -> List Post -> Html Msg
-postTable _ now posts =
+postTable config now posts =
+    let
+        filteredPosts =
+            posts
+                |> List.filter (\post -> (config.showTextOnly || post.url /= Nothing) && (config.showJobs || post.type_ /= "job"))
+                |> List.sortWith (sortToCompareFn config.sortBy)
+                |> List.take config.postsToShow
+    in
     table []
         [ tableHeader
-        , tableBody now posts
+        , tableBody now filteredPosts
         ]
+
 
 tableHeader : Html Msg
 tableHeader =
@@ -111,7 +119,7 @@ postsConfigView config =
             , select
                 [ id "select-sort-by", onInput (ConfigChanged << ChangeSortBy << Maybe.withDefault None << sortFromString) ]
                 (List.map(\sortOption -> option
-                        [ selected (config.sortBy == sortOption) ]
+                        [ value (sortToString sortOption), selected (config.sortBy == sortOption) ]
                         [ text (sortToString sortOption) ])
                     sortOptions
                 )
@@ -139,4 +147,3 @@ postsConfigView config =
                 []
             ]
         ]
-

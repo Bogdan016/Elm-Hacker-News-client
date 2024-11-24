@@ -62,10 +62,10 @@ sortToCompareFn : SortBy -> (Post -> Post -> Order)
 sortToCompareFn sort =
     case sort of
         Score ->
-            \postA postB -> compare postB.score postA.score
+            \postA postB -> compare postA.score postB.score
 
         Title ->
-            \postA postB -> compare postA.title postB.title
+            \postA postB -> compare postB.title postA.title
 
         Posted ->
             \postA postB -> compare (Time.posixToMillis postB.time) (Time.posixToMillis postA.time)
