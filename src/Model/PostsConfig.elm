@@ -101,8 +101,20 @@ type Change
 {-| Given a change and the current configuration, return a new configuration with the changes applied
 -}
 applyChanges : Change -> PostsConfig -> PostsConfig
-applyChanges _ _ =
-    Debug.todo "applyChanges"
+applyChanges change config =
+    case change of
+        ChangePostsToShow n ->
+            { config | postsToShow = n }
+
+        ChangeSortBy sortBy ->
+            { config | sortBy = sortBy }
+
+        ChangeShowJobs showJobs ->
+            { config | showJobs = showJobs }
+
+        ChangeShowTextOnly showTextOnly ->
+            { config | showTextOnly = showTextOnly }
+
 
 
 {-| Given the configuration and a list of posts, return the relevant subset of posts according to the configuration

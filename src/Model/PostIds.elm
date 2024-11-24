@@ -62,7 +62,6 @@ advance : PostIds -> Maybe (Int, PostIds)
 advance (PostIds cursor) =
     Cursor.forward cursor
         |> Maybe.map (\newCursor -> (Cursor.current newCursor, PostIds newCursor))
-
     -- Debug.todo "advance"
 
 
@@ -97,5 +96,4 @@ decode : De.Decoder (Maybe PostIds)
 decode =
     De.list De.int
         |> De.map fromList
-        
     -- Debug.todo "PostIds.decode"

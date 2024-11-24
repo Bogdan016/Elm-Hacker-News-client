@@ -139,8 +139,27 @@ durationBetween (Time.millisToPosix 1000) (Time.millisToPosix 1000) --> Nothing
 
 -}
 durationBetween : Time.Posix -> Time.Posix -> Maybe Duration
-durationBetween _ _ =
-    Nothing
+durationBetween t1 t2 =
+    let
+        finalSeconds = (Time.posixToMillis t2 - Time.posixToMillis t1) // 1000
+
+        seconds = Basics.modBy 60 finalSeconds
+
+        finalMinutes = finalSeconds // 60
+
+        minutes = Basics.modBy 60 finalMinutes
+
+        finalHours = finalMinutes // 60
+
+        hours = Basics.modBy 24 finalHours
+
+        days = finalHours // 24
+    in
+    if Time.posixToMillis t1 >= Time.posixToMillis t2 then
+        Nothing
+    else
+        Just { seconds = seconds, minutes = minutes, hours = hours, days = days }
+
     -- Debug.todo "durationBetween"
 
 
@@ -164,6 +183,33 @@ durationBetween _ _ =
 
 -}
 formatDuration : Duration -> String
-formatDuration _ =
-    ""
+formatDuration duration =
+    let
+        parts =
+            List.filterMap identity
+                [ if duration.days > 0 then
+                    Just (String.fromInt duration.days ++ " day" ++ (if duration.days > 1 then "s" else ""))
+                  else Nothing
+
+                , if duration.hours > 0 then
+                    Just (String.fromInt duration.hours ++ " hour" ++ (if duration.hours > 1 then "s" else ""))
+                  else Nothing
+
+                , if duration.minutes > 0 then
+                    Just (String.fromInt duration.minutes ++ " minute" ++ (if duration.minutes > 1 then "s" else ""))
+                  else Nothing
+
+                , if duration.seconds > 0 then
+                    Just (String.fromInt duration.seconds ++ " second" ++ (if duration.seconds > 1 then "s" else ""))
+                  else Nothing
+                ]
+    in
+    case parts of
+        [] -> "just now"
+        _ -> String.join " " parts ++ " ago"
+
+
+
+
+
     -- Debug.todo "formatDuration"
