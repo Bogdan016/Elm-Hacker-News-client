@@ -19,7 +19,7 @@ It demonstrates how Elm simplifies state management and handles features like fi
 ### Examples
 
 #### Before Filtering:
-![Before Filtering](assets/HackerNewsEx1.pngHacker)
+![Before Filtering](assets/HackerNewsEx1.png)
 
 #### After Filtering:
 ![After Filtering](assets/HackerNewsEx2.png)
