@@ -65,13 +65,14 @@ sortToCompareFn sort =
             \postA postB -> compare postA.score postB.score
 
         Title ->
-            \postA postB -> compare postB.title postA.title
+            \postA postB -> compare postA.title postB.title
 
         Posted ->
             \postA postB -> compare (Time.posixToMillis postB.time) (Time.posixToMillis postA.time)
 
         None ->
             \_ _ -> EQ
+
 
 
 type alias PostsConfig =

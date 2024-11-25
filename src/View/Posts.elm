@@ -31,14 +31,20 @@ Relevant library functions:
 
 
 -- Generates an HTML table displaying a list of posts
+-- postTable : PostsConfig -> Time.Posix -> List Post -> Html Msg
+-- postTable config now posts =
+--     let
+--         filteredPosts = Model.PostsConfig.filterPosts config posts
+--     in
+--     table []
+--         [ tableHeader
+--         , tableBody now filteredPosts
+--         ]
+
 postTable : PostsConfig -> Time.Posix -> List Post -> Html Msg
 postTable config now posts =
     let
-        filteredPosts =
-            posts
-                |> List.filter (\post -> (config.showTextOnly || post.url /= Nothing) && (config.showJobs || post.type_ /= "job"))
-                |> List.sortWith (sortToCompareFn config.sortBy)
-                |> List.take config.postsToShow
+        filteredPosts = Model.PostsConfig.filterPosts config posts
     in
     table []
         [ tableHeader

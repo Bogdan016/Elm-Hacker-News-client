@@ -40,5 +40,5 @@ decode =
         (De.field "score" De.int)
         (De.field "title" De.string)
         (De.field "url" (De.maybe De.string))
-        (De.field "time" (De.map Time.millisToPosix De.int))
+        (De.field "time" (De.map (Time.millisToPosix << (*) 1000) De.int))
         (De.field "type" De.string)
